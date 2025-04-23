@@ -6,7 +6,6 @@ export async function validateJWT(
   reply: FastifyReply,
 ) {
   const authHeader = request.headers.authorization;
-
   if (!authHeader) {
     return reply.status(401).send({ message: 'Token não fornecido' });
   }

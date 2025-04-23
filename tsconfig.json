@@ -1,17 +1,20 @@
 {
   "compilerOptions": {
-    "target": "es2020",
-    "module": "commonjs",        
+    "module": "commonjs",
+    "target": "es2021",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "strict": true,
+
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "forceConsistentCasingInFileNames": true, 
-    "esModuleInterop": true,
-    "strict": true,       
-    "rootDir": ".",                             
+    "forceConsistentCasingInFileNames": true,
+
+    "rootDir": ".",
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    }, 
-  },
+    }
+  }
 }

@@ -5,6 +5,8 @@ import { validateJWT } from '@/middlewares/jwt';
 
 export const app = fastify();
 app.addHook('onRequest', async (request, reply) => {
+  if (request.url === '/login') return;
+
   await validateJWT(request, reply);
 });
 

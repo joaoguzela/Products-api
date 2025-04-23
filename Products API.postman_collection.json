@@ -1,0 +1,189 @@
+{
+	"info": {
+		"_postman_id": "d55c83d6-6617-453b-8b10-a7429181994d",
+		"name": "Products API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15643388",
+		"_collection_link": "https://healthlabg8.postman.co/workspace/Teste~45310e65-9f5a-42d6-ad1b-867f2efeb7fb/collection/15643388-d55c83d6-6617-453b-8b10-a7429181994d?action=share&source=collection_link&creator=15643388"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\": \"admin@example.com\", \"password\": \"admin123\"}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"login"
+					]
+				},
+				"description": "Realiza login e obtém o token JWT."
+			},
+			"response": []
+		},
+		{
+			"name": "Criar Produto",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Paracetamol 500mg\",\n  \"price\": 12.5,\n  \"description\": \"Medicamento para dor e febre\",\n  \"image\": \"https://example.com/images/paracetamol.png\",\n  \"brandId\": \"762831eb-14d5-409a-a925-8e57547900ee\"\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:3000/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Produtos",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt}}"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Marcas",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt}}"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/brands",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"brands"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "Bearer {{jwt}}",
+				"type": "string"
+			},
+			{
+				"key": "in",
+				"value": "header",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "Authorization",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"pm.sendRequest({\r",
+					"  url: 'http://localhost:3000/login',  \r",
+					"  method: 'POST',\r",
+					"  header: { 'Content-Type': 'application/json' },\r",
+					"  body: {\r",
+					"    mode: 'raw',\r",
+					"    raw: JSON.stringify({\r",
+					"      email: 'admin@example.com',\r",
+					"      password: 'admin123'\r",
+					"    })\r",
+					"  }\r",
+					"}, function (err, res) {\r",
+					"  if (err) {\r",
+					"    console.log('Erro ao fazer login:', err);\r",
+					"  } else {\r",
+					"    const token = res.json().token;\r",
+					"    console.log('Token recebido:', token);\r",
+					"    pm.environment.set('jwt', token);\r",
+					"  }\r",
+					"});\r",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"value": "",
+			"type": "string",
+			"disabled": true
+		}
+	]
+}
