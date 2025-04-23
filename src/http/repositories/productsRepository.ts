@@ -16,7 +16,17 @@ export class PrismaProductsRepository implements IProductsRepository {
       skip: (page - 1) * limit,
       take: limit,
       where: nameFilter
-        ? { name: { contains: nameFilter, mode: 'insensitive' } }
+        ? {
+            OR: [
+              { name: { contains: nameFilter, mode: 'insensitive' } },
+              { description: { contains: nameFilter, mode: 'insensitive' } },
+              {
+                brand: {
+                  name: { contains: nameFilter, mode: 'insensitive' },
+                },
+              },
+            ],
+          }
         : {},
       include: {
         brand: true,

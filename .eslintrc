@@ -3,18 +3,18 @@
   "parserOptions": {
     "ecmaVersion": 2020,
     "sourceType": "module",
-    "jsx": true
+    "jsx": true,
   },
   "settings": {
     "react": {
-      "version": "detect"
-    }
+      "version": "detect",
+    },
   },
   "env": {
     "commonjs": true,
     "es6": true,
     "node": true,
-    "browser": true
+    "browser": true,
   },
   "extends": [
     "airbnb",
@@ -22,7 +22,7 @@
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
     "prettier",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
   ],
   "plugins": ["prettier", "import", "react", "react-hooks"],
   "root": true,
@@ -39,7 +39,7 @@
     "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/no-unused-vars": [
       "warn",
-      { "argsIgnorePattern": "^_" }
+      { "argsIgnorePattern": "^_" },
     ],
     "prettier/prettier": ["warn"],
     "spaced-comment": "off",
@@ -66,7 +66,10 @@
     "no-labels": "off",
     "no-plusplus": "off",
     "no-shadow": "off",
-    "@typescript-eslint/no-shadow": ["error", { "ignoreTypeValueShadow": true }],
+    "@typescript-eslint/no-shadow": [
+      "error",
+      { "ignoreTypeValueShadow": true },
+    ],
     "no-unused-expressions": "off",
     "no-restricted-syntax": "off",
     "no-param-reassign": ["error", { "props": false }],
@@ -82,6 +85,6 @@
     "react/require-default-props": "off",
     "jsx-a11y/no-static-element-interactions": "off",
     "jsx-a11y/click-events-have-key-events": "off",
-    "@typescript-eslint/default-param-last": "off"
-  }
+    "@typescript-eslint/default-param-last": false,
+  },
 }
