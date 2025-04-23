@@ -1,10 +1,14 @@
 import fastify from 'fastify';
 import { ZodError } from 'zod';
-// import { appRoutes } from '@/http/routes';
+import { appRoutes } from '@/http/route';
+import { validateJWT } from '@/middlewares/jwt';
 
 export const app = fastify();
+app.addHook('onRequest', async (request, reply) => {
+  await validateJWT(request, reply);
+});
 
-// app.register(appRoutes);
+app.register(appRoutes);
 
 app.setErrorHandler((error, _request, reply) => {
   if (error instanceof ZodError) {

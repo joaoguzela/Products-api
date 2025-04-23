@@ -1,5 +1,6 @@
 import { User } from '@prisma/client';
 import { compare } from 'bcryptjs';
+import { sign } from 'jsonwebtoken';
 import { InvalidCredentialsError } from '../errors/invalidCredentialsError';
 import { IUsersRepository } from '@/http/repositories/interfaces/iUsersRepository';
 
@@ -9,6 +10,7 @@ interface AuthenticateUseCaseRequest {
 }
 type AuthenticateUseCaseResponse = {
   user: User;
+  token: string;
 };
 
 export class AuthenticateUseCase {
@@ -31,8 +33,15 @@ export class AuthenticateUseCase {
     if (!doesPasswordMatches) {
       throw new InvalidCredentialsError();
     }
+    const token = sign(
+      { userId: user.id, email: user.email },
+      process.env.JWT_SECRET_KEY || 'your-secret-key',
+      { expiresIn: '1h' },
+    );
+
     return {
       user,
+      token,
     };
   }
 }
